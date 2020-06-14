@@ -6,7 +6,7 @@ Patreon: https://www.patreon.com/knucklesgang
 */
 const readline = require('readline')
 const { Client, RichEmbed } = require('discord.js');
-const { red,green,blue, grey, yellow, magenta, white } = require('chalk'); //Para o console ficar mais bonito UwU
+const { red,green,blue, grey, yellow, magenta, white,bgGreen } = require('chalk'); //Para o console ficar mais bonito UwU
 const chalk = require('chalk');
 const bot = new Client(); // Coloquei bot para ficar mais facil
 const settings = require('./settings.json') //Vamos usar para verificar algumas coisas, como token, id e username
@@ -53,8 +53,16 @@ bot.on('message', async(msg)=>{
     let a = '[';
     let b = ']';
     //////////////////////////////////////////////////// Resultado final
-    if(msg.type)
-    console.log(data + a + blue(lGuild)+ b + a +yellow(lChannel)+ b + a +magenta(lUser)+b + a + white(lContent)+ b);
+    let userNome = bot.user.tag;
+    let userId = bot.user.id;
+    switch (msg.channel.type != 'dm' && msg.channel.type != 'group') { //Se a msg não estiver em dm ou grupos
+        case msg.content.includes(userNome || userId || settings.Apelido || settings.Apelido1): //Se você for mencionado
+            console.log(bgGreen(data + a + blue(lGuild)+ b + a +yellow(lChannel)+ b + a +magenta(lUser)+b + a + white(lContent)+ b));
+            break;
+    
+        default:console.log(data + a + blue(lGuild)+ b + a +yellow(lChannel)+ b + a +magenta(lUser)+b + a + white(lContent)+ b);
+            break;
+    }
  
 })
 
