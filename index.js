@@ -9,7 +9,8 @@ const { Client, RichEmbed } = require('discord.js');
 const { red,green,blue, grey, yellow, magenta, white,bgGray } = require('chalk'); //Para o console ficar mais bonito UwU
 const chalk = require('chalk');
 const bot = new Client(); // Coloquei bot para ficar mais facil
-const settings = require('./settings.json') //Vamos usar para verificar algumas coisas, como token, id e username
+const settings = require('./settings.json'); //Vamos usar para verificar algumas coisas, como token, id e username
+const { url } = require('inspector');
 
 //Apresentação no console
 
@@ -86,28 +87,50 @@ bot.on('message', async(msg)=>{
         msg.edit(`:ping_pong: pong! seu ping é: *${bot.ping.toFixed()}ms*`);
     }
 
-    if(cmd === 'stream'){ //Está bugado, depois eu arrumo
-        let index = msg.content.lastIndexOf(' '); // Mostra o index até o final
-        let messagemSeparada = msg.content.split(' ').slice(1,index); //divite por espaços até o link
-        let nameStream = msg.content.slice(1,index);// Pega o nome até o link
-        let urlStream = msg.content.slice(index).split(); // pega o link
-        //console.log(index)
-        if(msg.content.includes('www.twitch') !== msg.content.includes('https://www.twitch.tv/joziel_borges')){
+    if(cmd === 'embed'){
+        let eContent = content.slice(0).join(" ");
+        msg.edit("", { embed: new RichEmbed().setColor(`${settings.color}`).setDescription(eContent).setFooter('Self Bot By: Knuckles#4442')});
+    }
+    //Mostra as infos do usuario em modo embed
+    if (cmd === "useri") {
+        let user = msg.mentions.users.first()
+          msg.edit(("", { embed: new RichEmbed().setTitle("**Informações**").setImage(user.avatarURL).setColor("#00D4FF").setThumbnail(user.avatarURL).setDescription("Nome - **" + user.username + "**\nDiscrim - **" + user.discriminator + "**\nID - **" + user.id + "**\nStatus - **" + user.presence.status + "**\nBot - **" + user.bot +"**\nTime - **" +user.createdAt+"**\n\n ** Foto de perfil ** \n\n").setFooter("Informações fornecidas pelo discord") }));
+    }
+    //Mostra a foto do usuario
+    if (cmd === "usera") {
+    	let user = msg.mentions.users.first()
+    return msg.edit(("",{embed: new RichEmbed().setImage(user.avatarURL)}));
+    }
+    //Copia o nome(Mudando o seu apelido no servidor) e coloca a foto do alvo(Limite de 2 vezes em até 10 minutos)
+    if(cmd === "clone"){
+        let user = msg.mentions.users.first()
+        bot.user.setAvatar(user.avatarURL)
+        msg.member.setNickname(user.username)
+        msg.edit(("",{embed: new RichEmbed().setTitle(bot.user.username + " copiou " + user.username)}));
+    }
+    //Seta os seus status como streaming
+    if(cmd === 'stream'){
+        let index = msg.content.lastIndexOf(' '); // Mostra o index de espaços até o final
+        let nameStream;
+        let urlStream
+        if(msg.content.includes('www.twitch')){
+            nameStream = msg.content.slice(7,index);// Pega o nome até o link
+            urlStream = msg.content.slice(index).split(); // pega o link
             console.log('A','\n',messagemSeparada)
             console.log(nameStream+ '  ',urlStream)
             bot.user.setPresence({
                 game:{
-                    name: msg.content.slice(index),
+                    name: nameStream,
                     type: 'STREAMING',
                     url: urlStream
                 }
             })
         }
         else{
-            console.log('B')
+            nameStream = msg.content.slice(7);
             bot.user.setPresence({
                 game:{  
-                    name: msg.content.slice(index),
+                    name: nameStream,
                     type: 'STREAMING',
                     url: 'https://www.twitch.tv/joziel_borges'
                 }
