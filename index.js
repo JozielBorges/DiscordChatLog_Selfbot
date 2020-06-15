@@ -15,24 +15,13 @@ const settings = require('./settings.json') //Vamos usar para verificar algumas 
 
 bot.on('ready', ()=>{
     console.log(yellow('[================================================================================================================]'));
-    console.log(green(`${magenta('[SELF BOT]')}Meu nome é:${blue(bot.user.tag)}`));
-    console.log(green(`${magenta('[SELF BOT]')}Meu prefix é:${blue(settings.prefix)}`));
+    console.log(green(`${magenta('[SELF BOT]')}[Meu nome é:] [${blue(bot.user.tag)}]`));
+    console.log(green(`${magenta('[SELF BOT]')}[Meu prefix é:] [${blue(settings.prefix)}]`));
     console.log(yellow('[================================================================================================================]'));
     console.log(red('[AVISO]')+'[Não irei atualizar o selfbot todos os dias, qualquer problema entre em contato] [Name>4& &<6Test#8726]')
 });
 
 // Se a msg não for igual ao seu id, ele não continua
-bot.on('message', async(msg)=>{
-    if(msg.author.id != settings.ID){
-        return;
-    }
-    let cmdComando = msg.content.split(" ")[0] // Pega a sua msg e separa
-    cmdComando = cmdComando.split(settings.prefix.length); //  Tira o seu prefix da msg
-    let resto = msg.content.split(" ").slice(1); // Tudo o que for depois do prefix é considerado "resto"
-    if(msg.content.startsWith(settings.prefix) && msg.author.id === settings.ID){ // Olha se a msg começa com o prefix e se foi você que digitou
-        console.log(grey('Comando usado: ' + cmdComando)) // Mostra no console o comando usado
-    }
-});
 
 function tempo() {
     let tempo = new Date();
@@ -68,9 +57,8 @@ bot.on('message', async(msg)=>{
     let b = ']';
     //////////////////////////////////////////////////// Resultado final
     let userNome = bot.user.tag;
-    let userId = bot.user.id;
     switch (msg.channel.type != 'dm' && msg.channel.type != 'group') { //Se a msg não estiver em dm ou grupos
-        case msg.content.toLowerCase().includes(userNome)||msg.content.toLowerCase().includes(userId)||msg.content.toLowerCase().includes(settings.Apelido)||msg.content.toLowerCase().includes(settings.Apelido1): //Se você for mencionado
+        case msg.content.toLowerCase().includes(userNome)||msg.content.toLowerCase().includes(settings.ID)||msg.content.toLowerCase().includes(settings.Apelido)||msg.content.toLowerCase().includes(settings.Apelido1): //Se você for mencionado
             console.log(a+`${green('MENCIONADO')}`+b+data + a + blue(lGuild)+ b + a +yellow(lChannel)+ b + a +magenta(lUser)+b + a + white(lContent)+ b);
             break;
     
@@ -81,19 +69,21 @@ bot.on('message', async(msg)=>{
 })
 
 //Aqui é a parte de comandos do selfbot
-bot.on('message', async(msg)=>{
-    if(msg.author.id != settings.ID){ //Verifica se a msg é sua
-        return; //Se não for, retorna
-    }
-    let cmd = msg.content.split(" ")[0] //Vamos usar o cmd para pegar o comando
-    cmd = cmd.slice(settings.prefix.length);//Tiramos o prefix e pegamos apenas o comando
 
-    if(msg.content.startsWith(settings.prefix) && msg.author.id === userId){ //Se a msg começar com o prefix e for sua a msg
+bot.on('message', async(msg)=>{
+    if(msg.author.id !== settings.ID) {
+        return;
+    }
+
+    let cmd = msg.content.split(" ")[0]
+    cmd = cmd.slice(settings.prefix.length);
+    let content = msg.content.split(" ").slice(1);
+    if(msg.content.startsWith(settings.prefix) && msg.author.id === settings.ID){ //Se a msg começar com o prefix e for sua a msg
         console.log(red(`[COMANDO] ${'['+msg.content+']'}`)); //Ele mostra no console oque você usou
     }
 
     if(cmd === 'ping'){ //Comando para mostrar o seu ping
-        sg.edit(`:ping_pong: pong! seu ping é: *${bot.ping.toFixed()}ms*`);
+        msg.edit(`:ping_pong: pong! seu ping é: *${bot.ping.toFixed()}ms*`);
     }
 
     if(cmd === 'stream'){ //Está bugado, depois eu arrumo
