@@ -15,8 +15,13 @@ Isso é usado para quando alguém fala o seu nome em algum servidor do discord, 
 ##COMANDOS
 
 ping: mostra o seu ping rs
+
 embed: Manda uma mensagem em forma embed
+
 useri: Mostra as infos do alvo
+
 usera: Mostra a foto do alvo
+
 clone: Copia o nome e a foto do alvo, Muda apenas o seu apelido no mesmo servidor do alvo
+
 stream [MSG] [Link twitch(OPCIONAL)] :Coloca seus status como em live, com a sua msg como nome, caso não tenha nenhum link da twitch, será colocada a minha pagina :D
