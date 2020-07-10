@@ -23,35 +23,29 @@ bot.on('ready', ()=>{
 });
 
 bot.on('message', async(msg)=>{
-    //////////////////////////////////////////////////// Pega as infos do dia,hora etc...
-    let tempo = new Date();
-    let segundo = tempo.getSeconds();
-    let minuto = tempo.getMinutes();
-    let hora = tempo.getHours();
-    let dia = tempo.getDate();
-    let mes = tempo.getMonth()+1; //Pega o mês e adiciona mais "1" para ficar certinho :)
-    let ano = tempo.getFullYear();
-    //////////////////////////////////////////////////// Junta tudo para apresentar depois
-    let data = '['+dia+'/'+mes+'/'+ano+']'+'{'+hora+'-'+minuto+'-'+segundo+'}';
-    //////////////////////////////////////////////////// Pegamos as infos do discord
-    let lGuild = msg.guild; //Pega o servidor
-    let lChannel = msg.channel.name; // Pega o canal
-    let lUser = msg.author.username; // Pega o usuario
-    let lContent = msg.content; // Pega a msg
-    //////////////////////////////////////////////////// Para ficar bonito e simples
-    let a = '[';
-    let b = ']';
-    //////////////////////////////////////////////////// Resultado final
-    let userNome = bot.user.tag;
-    switch (msg.channel.type != 'dm' && msg.channel.type != 'group') { //Se a msg não estiver em dm ou grupos
-        case msg.content.toLowerCase().includes(userNome)||msg.content.toLowerCase().includes(settings.ID)||msg.content.toLowerCase().includes(settings.Apelido)||msg.content.toLowerCase().includes(settings.Apelido1): //Se você for mencionado
-            console.log(a+`${green('MENCIONADO')}`+b+data + a + blue(lGuild)+ b + a +yellow(lChannel)+ b + a +magenta(lUser)+b + a + white(lContent)+ b);
-            break;
-    
-        default:console.log(data + a + blue(lGuild)+ b + a +yellow(lChannel)+ b + a +magenta(lUser)+b + a + white(lContent)+ b);
-            break;
-    }
- 
+  //////////////////////////////////////////////////// Pega as infos do dia,hora etc...
+  let tempo = new Date();
+  let segundo = tempo.getSeconds();
+  let minuto = tempo.getMinutes();
+  let hora = tempo.getHours();
+  let dia = tempo.getDate();
+  let mes = tempo.getMonth()+1; //Pega o mês e adiciona mais "1" para ficar certinho :)
+  let ano = tempo.getFullYear();
+  //////////////////////////////////////////////////// Junta tudo para apresentar depois
+  let data = '['+dia+'/'+mes+'/'+ano+']'+'{'+hora+'-'+minuto+'-'+segundo+'}';
+  //////////////////////////////////////////////////// Pegamos as infos do discord
+  let lGuild = msg.guild; //Pega o servidor
+  let lChannel = msg.channel.name; // Pega o canal
+  let lUser = msg.author.username; // Pega o usuario
+  let lContent = msg.content; // Pega a msg
+  //////////////////////////////////////////////////// Para ficar bonito e simples
+  let a = '[';
+  let b = ']';
+  //////////////////////////////////////////////////// Resultado final
+  let userNome = bot.user.tag;
+  if (msg.channel.type != 'dm' && msg.channel.type != 'group'){ //Se a msg não estiver em dm ou grupo
+    console.log(a+`${green('MENCIONADO')}`+b+data + a + blue(lGuild)+ b + a +yellow(lChannel)+ b + a +magenta(lUser)+b + a + white(lContent)+ b);
+  } 
 })
 
 //Aqui é a parte de comandos do selfbot
