@@ -22,21 +22,6 @@ bot.on('ready', ()=>{
     console.log(red('[AVISO]')+'[Não irei atualizar o selfbot todos os dias, qualquer problema entre em contato] [Name>4& &<6Test#8726]')
 });
 
-// Se a msg não for igual ao seu id, ele não continua
-
-function tempo() {
-    let tempo = new Date();
-    let segundo = tempo.getSeconds();
-    let minuto = tempo.getMinutes();
-    let hora = tempo.getHours();
-    let dia = tempo.getDate();
-    let mes = tempo.getMonth()+1; //Pega o mês e adiciona mais "1" para ficar certinho :)
-    let ano = tempo.getFullYear();
-    //////////////////////////////////////////////////// Junta tudo para apresentar depois
-    let data = '['+dia+'/'+mes+'/'+ano+']'+'{'+hora+'-'+minuto+'-'+segundo+'}';
-    return data;
-}
-
 bot.on('message', async(msg)=>{
     //////////////////////////////////////////////////// Pega as infos do dia,hora etc...
     let tempo = new Date();
@@ -72,7 +57,7 @@ bot.on('message', async(msg)=>{
 //Aqui é a parte de comandos do selfbot
 
 bot.on('message', async(msg)=>{
-    if(msg.author.id !== settings.ID) {
+    if(msg.author.id !== settings.ID) {// Se a msg não for igual ao seu id, ele não continua
         return;
     }
 
