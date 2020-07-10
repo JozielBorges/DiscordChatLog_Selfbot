@@ -42,9 +42,8 @@ bot.on('message', async(msg)=>{
   let a = '[';
   let b = ']';
   //////////////////////////////////////////////////// Resultado final
-  let userNome = bot.user.tag;
-   if (msg.channel.type != 'dm' && msg.channel.type != 'group'){ //Se a msg não estiver em dm ou grupo
-    if(msg.content.toLowerCase().includes(settings.Nome)||msg.content.toLowerCase().includes(settings.Apelido)||msg.content.toLowerCase().includes(settings.Apelido1)||msg.content.toLowerCase().includes(settings.Apelido2)){
+  if (msg.channel.type != 'dm' && msg.channel.type != 'group'){ //Se a msg não estiver em dm ou grupo
+    if(msg.content.toLowerCase().includes(settings.Nome)||msg.content.toLowerCase().includes(settings.Apelido)||msg.content.toLowerCase().includes(settings.Apelido1)){
         console.log(a+`${green('MENCIONADO')}`+b+data + a + blue(lGuild)+ b + a +yellow(lChannel)+ b + a +magenta(lUser)+b + a + white(lContent)+ b);
     }
   } 
