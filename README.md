@@ -1,6 +1,9 @@
 # discordselfbot
 
-Não se esqueça de colocar as infomações em "settings.json"
+Execute o [install.bat](https://github.com/JozielBorges/DiscordChatLog_Selfbot/blob/master/install.bat) e depois sempre Execute o [start.bat](https://github.com/JozielBorges/DiscordChatLog_Selfbot/blob/master/start.bat)
+
+
+Não se esqueça de colocar as infomações em [settings.json](https://github.com/JozielBorges/DiscordChatLog_Selfbot/blob/master/settings.json)
 
 settings.json/Nome = "Seu display name"
 
