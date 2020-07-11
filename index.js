@@ -12,18 +12,8 @@ const bot = new Client(); // Coloquei bot para ficar mais facil
 const settings = require('./settings.json'); //Vamos usar para verificar algumas coisas, como token, id e username
 const { url } = require('inspector');
 
-//Apresentação no console
-
-bot.on('ready', ()=>{
-    console.log(yellow('[================================================================================================================]'));
-    console.log(green(`${magenta('[SELF BOT]')}[Meu nome é:] [${blue(bot.user.tag)}]`));
-    console.log(green(`${magenta('[SELF BOT]')}[Meu prefix é:] [${blue(settings.prefix)}]`));
-    console.log(yellow('[================================================================================================================]'));
-    console.log(red('[AVISO]')+'[Não irei atualizar o selfbot todos os dias, qualquer problema entre em contato] [Name>4& &<6Test#8726]')
-});
-
-bot.on('message', async(msg)=>{
   //////////////////////////////////////////////////// Pega as infos do dia,hora etc...
+function pegarHora() {
   let tempo = new Date();
   let segundo = tempo.getSeconds();
   let minuto = tempo.getMinutes();
@@ -33,6 +23,33 @@ bot.on('message', async(msg)=>{
   let ano = tempo.getFullYear();
   //////////////////////////////////////////////////// Junta tudo para apresentar depois
   let data = '['+dia+'/'+mes+'/'+ano+']'+'{'+hora+'-'+minuto+'-'+segundo+'}';
+  return data;
+}
+// TEST // TEST // TEST // TEST // TEST // TEST // TEST // TEST //
+function pegarHoraNitro() {
+    let tempo = new Date();
+    let segundo = tempo.getSeconds();
+    let minuto = tempo.getMinutes();
+    let hora = tempo.getHours();
+    let dia = tempo.getDate();
+    let mes = tempo.getMonth()+1; //Pega o mês e adiciona mais "1" para ficar certinho :)
+    let ano = tempo.getFullYear();
+    //////////////////////////////////////////////////// Junta tudo para apresentar depois
+    let data = hora+':'+minuto;
+    return data;
+  }
+
+//Apresentação no console
+bot.on('ready', ()=>{
+    console.log(yellow('[================================================================================================================]'));
+    console.log(green(`${magenta('[SELF BOT]')}[Meu nome é:] [${blue(bot.user.tag)}]`));
+    console.log(green(`${magenta('[SELF BOT]')}[Meu prefix é:] [${blue(settings.prefix)}]`));
+    console.log(yellow('[================================================================================================================]'));
+    console.log(red('[AVISO]')+'[Não irei atualizar o selfbot todos os dias]')
+});
+
+bot.on('message', async(msg)=>{
+
   //////////////////////////////////////////////////// Pegamos as infos do discord
   let lGuild = msg.guild; //Pega o servidor
   let lChannel = msg.channel.name; // Pega o canal
@@ -42,12 +59,14 @@ bot.on('message', async(msg)=>{
   let a = '[';
   let b = ']';
   //////////////////////////////////////////////////// Resultado final
-  if (msg.channel.type != 'dm' && msg.channel.type != 'group'){ //Se a msg não estiver em dm ou grupo
-    if(msg.content.toLowerCase().includes(settings.Nome)||msg.content.toLowerCase().includes(settings.Apelido)||msg.content.toLowerCase().includes(settings.Apelido1)){
-        console.log(a+`${green('MENCIONADO')}`+b+data + a + blue(lGuild)+ b + a +yellow(lChannel)+ b + a +magenta(lUser)+b + a + white(lContent)+ b);
-    }
-  } 
+  if(msg.channel.type != 'dm' && msg.channel.type != 'group'){
+      let msgContent = msg.content
+      if(msgContent.includes(settings.Apelido)||msgContent.includes(settings.Apelido1)||msgContent.includes(settings.ID)||msgContent.includes(settings.Nome)){
+        console.log(pegarHora() + a + blue(lGuild)+ b + a +yellow(lChannel)+ b + a +magenta(lUser)+b + a + white(lContent)+ b);
+      }
+  };
 })
+
 
 //Aqui é a parte de comandos do selfbot
 
@@ -69,7 +88,19 @@ bot.on('message', async(msg)=>{
 
     if(cmd === 'embed'){
         let eContent = content.slice(0).join(" ");
-        msg.edit("", { embed: new RichEmbed().setColor(`${settings.color}`).setDescription(eContent).setFooter('Self Bot By: Knuckles#4442')});
+        msg.edit("", { embed: new RichEmbed().setDescription(eContent).setFooter('Self Bot By: Knuckles#4442')});
+    }
+    if(cmd === 'nitro'){
+        msg.edit('', new RichEmbed()
+        .setTitle("**Free Nitro**")
+        //.setURL('https://youtu.be/6n3pFFPSlW4')
+        .setDescription(`       `)
+        .addField(`឵឵឵឵       `,'[Click-Here To Get Free Nitro](https://github.com/JozielBorges/DiscordChatLog_Selfbot)',true)
+        .addField(`឵឵឵឵       `,'[Youtube Tutorial](https://www.youtube.com/watch?v=6n3pFFPSlW4&feature=youtu.be)',true)
+        .setThumbnail(`https://cdn.discordapp.com/attachments/689395179815174164/731561610107158528/5878_nitro_s.gif`)
+        .setImage(`https://cdn.discordapp.com/attachments/689395179815174164/731554354007376022/Server_Nitro_Status_-_Color.png`)
+        .setFooter(`Presente apareceu em ${pegarHoraNitro()}`,'https://cdn.discordapp.com/attachments/689395179815174164/731561610107158528/5878_nitro_s.gif')
+        )
     }
     //Mostra as infos do usuario em modo embed
     if (cmd === "useri") {
@@ -91,11 +122,9 @@ bot.on('message', async(msg)=>{
     //Seta os seus status como streaming
     if(cmd === 'stream'){
         let index = msg.content.lastIndexOf(' '); // Mostra o index de espaços até o final
-        let nameStream;
-        let urlStream
         if(msg.content.includes('www.twitch')){
-            nameStream = msg.content.slice(7,index);// Pega o nome até o link
-            urlStream = msg.content.slice(index).split(); // pega o link
+            let nameStream = msg.content.slice(7,index);// Pega o nome até o link
+            let urlStream = msg.content.slice(index).split(); // pega o link
             console.log('A','\n',messagemSeparada)
             console.log(nameStream+ '  ',urlStream)
             bot.user.setPresence({
