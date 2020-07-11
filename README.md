@@ -25,3 +25,5 @@ usera: Mostra a foto do alvo
 clone: Copia o nome e a foto do alvo, Muda apenas o seu apelido no mesmo servidor do alvo
 
 stream [MSG] [Link twitch(OPCIONAL)] :Coloca seus status como em live, com a sua msg como nome, caso não tenha nenhum link da twitch, será colocada a minha pagina :D
+
+nitro: faz aparecer um falso presente de nitro [EXEMPLO](https://cdn.discordapp.com/attachments/689395179815174164/731584258149318696/unknown.png)
