@@ -11,7 +11,6 @@ const chalk = require('chalk');
 const bot = new Client(); // Coloquei bot para ficar mais fácil
 const settings = require('./settings.json'); //Vamos usar para verificar algumas coisas, como token, id e username
 const { url } = require('inspector');
-const request = require("request");
 
   //////////////////////////////////////////////////// Pega as infos do dia,hora etc...
 function pegarHora() {
